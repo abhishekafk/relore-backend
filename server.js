@@ -6,6 +6,9 @@ const morgan = require('morgan');
 
 const healthRouter = require('./src/routes/health');
 const reelsRouter = require('./src/routes/reels');
+const searchRouter = require('./src/routes/search');
+const categoriesRouter = require('./src/routes/categories');
+const clustersRouter = require('./src/routes/clusters');
 const { requireAuth } = require('./src/middleware/auth');
 
 const app = express();
@@ -21,6 +24,9 @@ app.use('/api/v1/health', healthRouter);
 
 // Protected routes
 app.use('/api/v1/reels', requireAuth, reelsRouter);
+app.use('/api/v1/search', requireAuth, searchRouter);
+app.use('/api/v1/categories', requireAuth, categoriesRouter);
+app.use('/api/v1/clusters', requireAuth, clustersRouter);
 
 // 404 handler
 app.use((req, res) => {
