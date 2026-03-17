@@ -28,14 +28,8 @@ async function transcribeAudio(audioPath) {
   console.log(`[STEP2] Sending ${sizeMB.toFixed(2)}MB ${ext} to Groq Whisper`);
 
   try {
-    const audioBuffer = fs.readFileSync(audioPath);
-    const base64Audio = audioBuffer.toString('base64');
-
     const result = await groq.audio.transcriptions.create({
-      file: {
-        data: base64Audio,
-        mimetype: getMimeType(ext),
-      },
+      file: fs.createReadStream(audioPath),
       model: whisperModel,
       response_format: 'text',
       language: 'en',
@@ -61,14 +55,8 @@ async function transcribeAudio(audioPath) {
 
     try {
       console.log('[STEP2] Retrying transcription...');
-      const audioBuffer = fs.readFileSync(audioPath);
-      const base64Audio = audioBuffer.toString('base64');
-
       const retryResult = await groq.audio.transcriptions.create({
-        file: {
-          data: base64Audio,
-          mimetype: getMimeType(ext),
-        },
+        file: fs.createReadStream(audioPath),
         model: whisperModel,
         response_format: 'text',
       });
