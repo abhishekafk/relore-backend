@@ -1,0 +1,16 @@
+﻿[Instagram] Extracting URL: https://www.instagram.com/reel/DSIQ0EtE45j/
+[Instagram] DSIQ0EtE45j: Setting up session
+[Instagram] DSIQ0EtE45j: Downloading JSON metadata
+[info] Available formats for DSIQ0EtE45j:
+ID                     EXT RESOLUTION |   FILESIZE   TBR PROTO | VCODEC          VBR ACODEC     ABR ASR MORE INFO
+----------------------------------------------------------------------------------------------------------------------------
+dash-885466217244378a  m4a audio only | 593.05KiB   60k https | audio only          mp4a.40.5  60k 44k DASH audio, m4a_dash
+1                      mp4 640x1136   |                  https | unknown             unknown
+dash-820199550979676v  mp4 720x1280   |   1.37MiB  141k https | vp09.00.31.08  141k video only         DASH video, mp4_dash
+dash-830477106630534v  mp4 720x1280   |   1.86MiB  192k https | vp09.00.31.08  192k video only         DASH video, mp4_dash
+dash-1783911895643331v mp4 720x1280   |   2.53MiB  261k https | vp09.00.31.08  261k video only         DASH video, mp4_dash
+dash-910326245502452v  mp4 720x1280   |   3.53MiB  364k https | vp09.00.31.08  364k video only         DASH video, mp4_dash
+dash-1497585954666770v mp4 720x1280   |   4.69MiB  484k https | vp09.00.31.08  484k video only         DASH video, mp4_dash
+dash-1173602527758084v mp4 720x1280   |   6.11MiB  630k https | vp09.00.31.08  630k video only         DASH video, mp4_dash
+dash-923882456628622v  mp4 720x1280   |   8.26MiB  851k https | vp09.00.31.08  851k video only         DASH video, mp4_dash
+dash-2791595441177580v mp4 1080x1920  |  11.93MiB 1229k https | vp09.00.40.08 1229k video only         DASH video, mp4_dash

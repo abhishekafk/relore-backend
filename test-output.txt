@@ -1,0 +1,445 @@
+﻿
+====================================================
+  re:lore Pipeline End-to-End Test
+====================================================
+
+[2026-03-14T18:26:25.531Z] Reel URL : https://www.instagram.com/reel/DSIQ0EtE45j/
+[2026-03-14T18:26:25.532Z] Test User: 00000000-0000-0000-0000-000000000001
+
+-- Step 0: Upsert test user --
+[2026-03-14T18:26:26.286Z] [OK] Test user ready (0.75s)
+[2026-03-14T18:26:26.540Z] Found existing reel: 5d394906-bc49-4e93-a28a-3a9cfea55c33 (status: ready)
+[2026-03-14T18:26:26.540Z] Resetting to processing for re-test...
+
+-- Running Full 6-Step Pipeline --
+[2026-03-14T18:26:26.743Z] Starting pipeline for reel 5d394906-bc49-4e93-a28a-3a9cfea55c33...
+
+[PIPELINE] Starting pipeline for reel 5d394906-bc49-4e93-a28a-3a9cfea55c33
+[PIPELINE] Step 1 ΓÇö downloading reel audio
+[STEP1] Audio ready: C:\Users\abhis\AppData\Local\Temp\DSIQ0EtE45j_audio.m4a (594 KB)
+[PIPELINE] Step 1 done ΓÇö audio: C:\Users\abhis\AppData\Local\Temp\DSIQ0EtE45j_audio.m4a, thumbnail: yes
+[PIPELINE] Step 2 ΓÇö transcribing audio
+[STEP2] Sending 0.58MB .m4a (audio/mp4) to Gemini
+node : [STEP2] Gemini 
+transcription failed: 
+[GoogleGenerativeAI 
+Error]: Error fetching 
+from https://generativelan
+guage.googleapis.com/v1bet
+a/models/gemini-2.0-flash:
+generateContent: [429 Too 
+Many Requests] You 
+exceeded your current 
+quota, please check your 
+plan and billing details. 
+For more information on 
+this error, head to: https
+://ai.google.dev/gemini-ap
+i/docs/rate-limits. To 
+monitor your current 
+usage, head to: https://ai
+.dev/rate-limit. 
+At line:1 char:26
++ Start-Sleep -Seconds 
+65; node test-pipeline.js 
+2>&1 | Out-File -FileP ...
++                         
+ 
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo        
+      : NotSpecified: ([  
+  STEP2] Gemini ...ev/r   
+ ate-limit. :String) [    
+], RemoteException
+    + FullyQualifiedError 
+   Id : NativeCommandErr  
+  or
+ 
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_input_tok
+en_count, limit: 0, 
+model: gemini-2.0-flash
+Please retry in 
+2.861296087s. [{"@type":"t
+ype.googleapis.com/google.
+rpc.Help","links":[{"descr
+iption":"Learn more about 
+Gemini API quotas","url":"
+https://ai.google.dev/gemi
+ni-api/docs/rate-limits"}]
+},{"@type":"type.googleapi
+s.com/google.rpc.QuotaFail
+ure","violations":[{"quota
+Metric":"generativelanguag
+e.googleapis.com/generate_
+content_free_tier_requests
+","quotaId":"GenerateReque
+stsPerDayPerProjectPerMode
+l-FreeTier","quotaDimensio
+ns":{"location":"global","
+model":"gemini-2.0-flash"}
+},{"quotaMetric":"generati
+velanguage.googleapis.com/
+generate_content_free_tier
+_requests","quotaId":"Gene
+rateRequestsPerMinutePerPr
+ojectPerModel-FreeTier","q
+uotaDimensions":{"location
+":"global","model":"gemini
+-2.0-flash"}},{"quotaMetri
+c":"generativelanguage.goo
+gleapis.com/generate_conte
+nt_free_tier_input_token_c
+ount","quotaId":"GenerateC
+ontentInputTokensPerModelP
+erMinute-FreeTier","quotaD
+imensions":{"location":"gl
+obal","model":"gemini-2.0-
+flash"}}]},{"@type":"type.
+googleapis.com/google.rpc.
+RetryInfo","retryDelay":"2
+s"}]
+[STEP2] Retrying transcription...
+[STEP2] Retry also failed 
+ΓÇö saving reel with 
+empty transcript: 
+[GoogleGenerativeAI 
+Error]: Error fetching 
+from https://generativelan
+guage.googleapis.com/v1bet
+a/models/gemini-2.0-flash:
+generateContent: [429 Too 
+Many Requests] You 
+exceeded your current 
+quota, please check your 
+plan and billing details. 
+For more information on 
+this error, head to: https
+://ai.google.dev/gemini-ap
+i/docs/rate-limits. To 
+monitor your current 
+usage, head to: https://ai
+.dev/rate-limit. 
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_input_tok
+en_count, limit: 0, 
+model: gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+Please retry in 
+2.312499894s. [{"@type":"t
+ype.googleapis.com/google.
+rpc.Help","links":[{"descr
+iption":"Learn more about 
+Gemini API quotas","url":"
+https://ai.google.dev/gemi
+ni-api/docs/rate-limits"}]
+},{"@type":"type.googleapi
+s.com/google.rpc.QuotaFail
+ure","violations":[{"quota
+Metric":"generativelanguag
+e.googleapis.com/generate_
+content_free_tier_input_to
+ken_count","quotaId":"Gene
+rateContentInputTokensPerM
+odelPerMinute-FreeTier","q
+uotaDimensions":{"model":"
+gemini-2.0-flash","locatio
+n":"global"}},{"quotaMetri
+c":"generativelanguage.goo
+gleapis.com/generate_conte
+nt_free_tier_requests","qu
+otaId":"GenerateRequestsPe
+rMinutePerProjectPerModel-
+FreeTier","quotaDimensions
+":{"model":"gemini-2.0-fla
+sh","location":"global"}},
+{"quotaMetric":"generative
+language.googleapis.com/ge
+nerate_content_free_tier_r
+equests","quotaId":"Genera
+teRequestsPerDayPerProject
+PerModel-FreeTier","quotaD
+imensions":{"model":"gemin
+i-2.0-flash","location":"g
+lobal"}}]},{"@type":"type.
+googleapis.com/google.rpc.
+RetryInfo","retryDelay":"2
+s"}]
+[PIPELINE] Step 2 done ΓÇö 0 chars transcribed
+[PIPELINE] Step 3 ΓÇö analyzing content
+[STEP3] Gemini analysis 
+failed: 
+[GoogleGenerativeAI 
+Error]: Error fetching 
+from https://generativelan
+guage.googleapis.com/v1bet
+a/models/gemini-2.0-flash:
+generateContent: [429 Too 
+Many Requests] You 
+exceeded your current 
+quota, please check your 
+plan and billing details. 
+For more information on 
+this error, head to: https
+://ai.google.dev/gemini-ap
+i/docs/rate-limits. To 
+monitor your current 
+usage, head to: https://ai
+.dev/rate-limit. 
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_input_tok
+en_count, limit: 0, 
+model: gemini-2.0-flash
+Please retry in 
+2.167769787s. [{"@type":"t
+ype.googleapis.com/google.
+rpc.Help","links":[{"descr
+iption":"Learn more about 
+Gemini API quotas","url":"
+https://ai.google.dev/gemi
+ni-api/docs/rate-limits"}]
+},{"@type":"type.googleapi
+s.com/google.rpc.QuotaFail
+ure","violations":[{"quota
+Metric":"generativelanguag
+e.googleapis.com/generate_
+content_free_tier_requests
+","quotaId":"GenerateReque
+stsPerDayPerProjectPerMode
+l-FreeTier","quotaDimensio
+ns":{"model":"gemini-2.0-f
+lash","location":"global"}
+},{"quotaMetric":"generati
+velanguage.googleapis.com/
+generate_content_free_tier
+_requests","quotaId":"Gene
+rateRequestsPerMinutePerPr
+ojectPerModel-FreeTier","q
+uotaDimensions":{"location
+":"global","model":"gemini
+-2.0-flash"}},{"quotaMetri
+c":"generativelanguage.goo
+gleapis.com/generate_conte
+nt_free_tier_input_token_c
+ount","quotaId":"GenerateC
+ontentInputTokensPerModelP
+erMinute-FreeTier","quotaD
+imensions":{"model":"gemin
+i-2.0-flash","location":"g
+lobal"}}]},{"@type":"type.
+googleapis.com/google.rpc.
+RetryInfo","retryDelay":"2
+s"}]
+[STEP3] Retrying analysis...
+[STEP3] Retry failed ΓÇö 
+using fallback defaults: 
+[GoogleGenerativeAI 
+Error]: Error fetching 
+from https://generativelan
+guage.googleapis.com/v1bet
+a/models/gemini-2.0-flash:
+generateContent: [429 Too 
+Many Requests] You 
+exceeded your current 
+quota, please check your 
+plan and billing details. 
+For more information on 
+this error, head to: https
+://ai.google.dev/gemini-ap
+i/docs/rate-limits. To 
+monitor your current 
+usage, head to: https://ai
+.dev/rate-limit. 
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_requests,
+ limit: 0, model: 
+gemini-2.0-flash
+* Quota exceeded for 
+metric: generativelanguage
+.googleapis.com/generate_c
+ontent_free_tier_input_tok
+en_count, limit: 0, 
+model: gemini-2.0-flash
+Please retry in 
+1.820768411s. [{"@type":"t
+ype.googleapis.com/google.
+rpc.Help","links":[{"descr
+iption":"Learn more about 
+Gemini API quotas","url":"
+https://ai.google.dev/gemi
+ni-api/docs/rate-limits"}]
+},{"@type":"type.googleapi
+s.com/google.rpc.QuotaFail
+ure","violations":[{"quota
+Metric":"generativelanguag
+e.googleapis.com/generate_
+content_free_tier_requests
+","quotaId":"GenerateReque
+stsPerDayPerProjectPerMode
+l-FreeTier","quotaDimensio
+ns":{"location":"global","
+model":"gemini-2.0-flash"}
+},{"quotaMetric":"generati
+velanguage.googleapis.com/
+generate_content_free_tier
+_requests","quotaId":"Gene
+rateRequestsPerMinutePerPr
+ojectPerModel-FreeTier","q
+uotaDimensions":{"location
+":"global","model":"gemini
+-2.0-flash"}},{"quotaMetri
+c":"generativelanguage.goo
+gleapis.com/generate_conte
+nt_free_tier_input_token_c
+ount","quotaId":"GenerateC
+ontentInputTokensPerModelP
+erMinute-FreeTier","quotaD
+imensions":{"location":"gl
+obal","model":"gemini-2.0-
+flash"}}]},{"@type":"type.
+googleapis.com/google.rpc.
+RetryInfo","retryDelay":"1
+s"}]
+[PIPELINE] Step 3 done ΓÇö title: "FULL RECIPE & MACRO BREAKDOWN≡ƒæç
+
+For the Chicken Marinade:
+
+"
+[PIPELINE] Step 4 ΓÇö generating embedding
+[STEP4] Embedding 
+generation failed: 
+[GoogleGenerativeAI 
+Error]: Error fetching 
+from https://generativelan
+guage.googleapis.com/v1bet
+a/models/text-embedding-00
+4:embedContent: [404 Not 
+Found] 
+models/text-embedding-004 
+is not found for API 
+version v1beta, or is not 
+supported for 
+embedContent. Call 
+ListModels to see the 
+list of available models 
+and their supported 
+methods.
+[PIPELINE] Step 4 done ΓÇö embedding: skipped
+[PIPELINE] Step 5 ΓÇö storing thumbnail
+[STEP5] Cleaned up temp audio: C:\Users\abhis\AppData\Local\Temp\DSIQ0EtE45j_audio.m4a
+[STEP5] Supabase Storage 
+upload failed: Bucket not 
+found
+[PIPELINE] Step 5 done ΓÇö thumbnail: stored
+[PIPELINE] Step 6 ΓÇö writing to database
+[STEP6] Reel 5d394906-bc49-4e93-a28a-3a9cfea55c33 updated ΓÇö status: ready, category: general
+[STEP6] Category 'general' updated
+[PIPELINE] Γ£ô Complete in 8.0s ΓÇö reel 5d394906-bc49-4e93-a28a-3a9cfea55c33 is ready
+
+====================================================
+  PIPELINE SUCCEEDED in 7.99s
+====================================================
+
+-- Result Summary --
+  Status     : ready
+  Title      : FULL RECIPE & MACRO BREAKDOWN≡ƒæç
+
+For the Chicken Marinade:
+
+
+  Category   : general
+  Subcategory: null
+  Language   : en
+  Tags       : []
+  Locations  : []
+  Skill Name : (none)
+  Skill Schema: null
+  Thumbnail  : https://instagram.fdel27-9.fna.fbcdn.net/v/t51.71878-15/598758600_15562490954973...
+  Transcript : (none)
+  Embedding  : (null)
+
+  Summary bullets:
+    1. content saved from instagram
+    2. 
+    3. 
+
+-- Skill Data --
+null
+
+-- Full Reel Object (embedding truncated) --
+{
+  "id": "5d394906-bc49-4e93-a28a-3a9cfea55c33",
+  "user_id": "00000000-0000-0000-0000-000000000001",
+  "instagram_url": "https://www.instagram.com/reel/DSIQ0EtE45j/",
+  "title": "FULL RECIPE & MACRO BREAKDOWN≡ƒæç\n\nFor the Chicken Marinade:\n\n",
+  "thumbnail_url": "https://instagram.fdel27-9.fna.fbcdn.net/v/t51.71878-15/598758600_1556249095497313_5022541975157097801_n.jpg?stp=dst-jpg_e15_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42NDB4MTEzNi5zZHIuZjcxODc4Lm5mcmFtZV9jb3Zlcl9mcmFtZS5leHBlcmltZW50YWwifQ&_nc_ht=instagram.fdel27-9.fna.fbcdn.net&_nc_cat=101&_nc_oc=Q6cZ2QEIq6ZUxRI9F1SJ0rhconAFfadZjP9H3BcrJumd9DyxQSIqXJRphysXWQOMclxw9j4&_nc_ohc=stMw8m1myzMQ7kNvwGyuwLr&_nc_gid=JQdCf5ZwRhdkP0jBxfAK_Q&edm=ANTKIIoBAAAA&ccb=7-5&oh=00_AfyChiCSOCda-XeYcqRA65OaXrQb_Rz7L-QYfWk5AGDWSA&oe=69BB7EB2&_nc_sid=d885a2",
+  "transcript": null,
+  "summary": [
+    "content saved from instagram",
+    "",
+    ""
+  ],
+  "category": "general",
+  "subcategory": null,
+  "tags": [],
+  "locations": [],
+  "skill_name": null,
+  "skill_schema": null,
+  "skill_data": null,
+  "embedding": null,
+  "status": "ready",
+  "created_at": "2026-03-14T18:10:26.61407+00:00",
+  "language": "en"
+}
+
+Total time: 9.20s
+
