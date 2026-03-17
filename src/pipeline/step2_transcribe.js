@@ -25,7 +25,15 @@ async function transcribeAudio(audioPath) {
 
   const ext = path.extname(audioPath).toLowerCase();
   const sizeMB = stats.size / (1024 * 1024);
-  console.log(`[STEP2] Sending ${sizeMB.toFixed(2)}MB ${ext} to Groq Whisper`);
+  const mimeType = getMimeType(ext);
+  const fileName = path.basename(audioPath);
+  
+  console.log(`[STEP2] Audio file path: ${audioPath}`);
+  console.log(`[STEP2] Audio file size: ${stats.size} bytes (${sizeMB.toFixed(2)} MB)`);
+  console.log(`[STEP2] Audio file extension: ${ext}`);
+  console.log(`[STEP2] Audio mime type: ${mimeType}`);
+  console.log(`[STEP2] Audio file name: ${fileName}`);
+  console.log(`[STEP2] Sending to Groq Whisper...`);
 
   try {
     const result = await groq.audio.transcriptions.create({
@@ -35,7 +43,17 @@ async function transcribeAudio(audioPath) {
       language: 'en',
     });
 
-    const text = (result.text || '').trim();
+    console.log('[STEP2] Raw Groq response:', JSON.stringify(result, null, 2));
+
+    // Groq Whisper returns transcript as a string directly, not as result.text
+    let text = '';
+    if (typeof result === 'string') {
+      text = result.trim();
+    } else if (result && typeof result.text === 'string') {
+      text = result.text.trim();
+    }
+
+    console.log(`[STEP2] Extracted text: ${text.length} chars`);
 
     const noSpeechPatterns = [
       /^(no speech|no spoken|music only|instrumental|no dialogue|empty|none|silent)/i,
@@ -61,7 +79,15 @@ async function transcribeAudio(audioPath) {
         response_format: 'text',
       });
 
-      return (retryResult.text || '').trim();
+      // Same fix for retry
+      let retryText = '';
+      if (typeof retryResult === 'string') {
+        retryText = retryResult.trim();
+      } else if (retryResult && typeof retryResult.text === 'string') {
+        retryText = retryResult.text.trim();
+      }
+
+      return retryText;
     } catch (retryErr) {
       console.error('[STEP2] Retry also failed — saving reel with empty transcript:', retryErr.message);
       return '';
