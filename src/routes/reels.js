@@ -54,6 +54,18 @@ router.post('/import', async (req, res) => {
       });
     }
 
+    // Upsert user record first (in case of FK constraint)
+    await supabase.from('users').upsert(
+      {
+        id: userId,
+        email: req.user.email,
+        display_name: req.user.user_metadata?.full_name || null,
+        avatar_url: req.user.user_metadata?.avatar_url || null,
+        last_seen_at: new Date().toISOString(),
+      },
+      { onConflict: 'id', ignoreDuplicates: false }
+    );
+
     // Create reel record with status 'processing'
     const { data: reel, error: insertError } = await supabase
       .from('reels')
@@ -78,18 +90,6 @@ router.post('/import', async (req, res) => {
     });
 
     console.log(`[IMPORT] Reel ${reel.id} enqueued as job ${job.id}`);
-
-    // Upsert user record (ensure user exists in our users table)
-    await supabase.from('users').upsert(
-      {
-        id: userId,
-        email: req.user.email,
-        display_name: req.user.user_metadata?.full_name || null,
-        avatar_url: req.user.user_metadata?.avatar_url || null,
-        last_seen_at: new Date().toISOString(),
-      },
-      { onConflict: 'id', ignoreDuplicates: false }
-    );
 
     return res.status(201).json({
       reel_id: reel.id,

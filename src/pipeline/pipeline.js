@@ -71,7 +71,7 @@ async function runPipeline(reelId, instagramUrl, userId) {
       try {
         const fs = require('fs');
         if (fs.existsSync(audioPath)) fs.unlinkSync(audioPath);
-      } catch (_) {}
+      } catch (_) { }
     }
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
