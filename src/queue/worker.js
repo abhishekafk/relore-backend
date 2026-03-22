@@ -3,6 +3,9 @@ const { processReelQueue } = require('./jobQueue');
 const { runPipeline, markReelFailed } = require('../pipeline/pipeline');
 const { sendPushNotification } = require('../utils/notifications');
 
+console.log('[WORKER] Initializing...');
+console.log('[WORKER] Redis URL:', process.env.REDIS_URL || 'using default');
+
 /**
  * Bull worker — real AI processing pipeline.
  *
@@ -10,47 +13,54 @@ const { sendPushNotification } = require('../utils/notifications');
  * Each job runs the full 6-step pipeline:
  *   yt-dlp → Gemini transcribe → Gemini analyze → embed → thumbnail → DB write
  */
-processReelQueue.process(3, async (job) => {
-  const { reel_id, instagram_url, user_id } = job.data;
+console.log('[WORKER] Registering process handler...');
+try {
+  processReelQueue.process(3, async (job) => {
+    const { reel_id, instagram_url, user_id } = job.data;
 
-  console.log(`[WORKER] Job ${job.id} started — reel ${reel_id}`);
-  console.log(`[WORKER] Attempt ${job.attemptsMade + 1}/${job.opts.attempts}`);
+    console.log(`[WORKER] Job ${job.id} started — reel ${reel_id}`);
+    console.log(`[WORKER] Attempt ${job.attemptsMade + 1}/${job.opts.attempts}`);
 
-  try {
-    const reel = await runPipeline(reel_id, instagram_url, user_id);
+    try {
+      const reel = await runPipeline(reel_id, instagram_url, user_id);
 
-    // Send success push notification (Phase 2: stub logs it, Phase 6: sends real push)
-    const title = reel?.title || 'your reel';
-    await sendPushNotification(
-      null, // user push token — available in Phase 6
-      're:lore',
-      `${title} — added to your lore`,
-      { reel_id, screen: 'card' }
-    );
-
-    return { reel_id, status: 'ready', title };
-
-  } catch (err) {
-    console.error(`[WORKER] Job ${job.id} error:`, err.message);
-
-    // On final attempt (all retries exhausted): mark reel as failed + notify user
-    const isLastAttempt = job.attemptsMade >= (job.opts.attempts - 1);
-    if (isLastAttempt) {
-      await markReelFailed(reel_id, user_id);
-
+      const title = reel?.title || 'your reel';
       await sendPushNotification(
         null,
         're:lore',
-        'could not process a reel. tap to retry.',
-        { reel_id, screen: 'add' }
+        `${title} — added to your lore`,
+        { reel_id, screen: 'card' }
       );
 
-      console.error(`[WORKER] Reel ${reel_id} permanently failed after ${job.opts.attempts} attempts`);
-    }
+      return { reel_id, status: 'ready', title };
 
-    // Re-throw so Bull handles retry scheduling
-    throw err;
-  }
+    } catch (err) {
+      console.error(`[WORKER] Job ${job.id} error:`, err.message);
+
+      const isLastAttempt = job.attemptsMade >= (job.opts.attempts - 1);
+      if (isLastAttempt) {
+        await markReelFailed(reel_id, user_id);
+
+        await sendPushNotification(
+          null,
+          're:lore',
+          'could not process a reel. tap to retry.',
+          { reel_id, screen: 'add' }
+        );
+
+        console.error(`[WORKER] Reel ${reel_id} permanently failed after ${job.opts.attempts} attempts`);
+      }
+
+      throw err;
+    }
+  });
+  console.log('[WORKER] Process handler registered successfully');
+} catch (err) {
+  console.error('[WORKER] FAILED to register process handler:', err);
+}
+
+processReelQueue.on('ready', () => {
+  console.log('[WORKER] Queue is ready and listening for jobs');
 });
 
 processReelQueue.on('completed', (job, result) => {
@@ -71,4 +81,12 @@ processReelQueue.on('error', (err) => {
   console.error('[WORKER] Queue error:', err.message);
 });
 
-console.log('[WORKER] re:lore AI pipeline worker started (concurrency: 3)');
+processReelQueue.on('waiting', (jobId) => {
+  console.log(`[WORKER] Job ${jobId} is waiting in the queue`);
+});
+
+processReelQueue.on('active', (job) => {
+  console.log(`[WORKER] Job ${job.id} is now active (being processed)`);
+});
+
+console.log('[WORKER] re:lore AI pipeline worker fully initialized (concurrency: 3)');
