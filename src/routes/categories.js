@@ -8,14 +8,30 @@ router.get('/', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('categories')
-      .select('id, name, reel_count, cover_thumbnail_url')
-      .eq('user_id', userId)
-      .order('reel_count', { ascending: false });
+      .select('id, name, cover_thumbnail_url')
+      .eq('user_id', userId);
 
     if (error) {
       console.error('[CATEGORIES] Error:', error);
       return res.status(500).json({ error: 'failed to fetch categories' });
     }
+
+    for (const cat of data || []) {
+      const { count, error: countError } = await supabase
+        .from('reels')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', userId)
+        .eq('category', cat.name.toLowerCase())
+        .eq('status', 'ready');
+
+      if (!countError) {
+        cat.reel_count = count || 0;
+      } else {
+        cat.reel_count = 0;
+      }
+    }
+
+    data.sort((a, b) => (b.reel_count || 0) - (a.reel_count || 0));
 
     res.json({ categories: data || [] });
   } catch (err) {

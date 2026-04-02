@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
       query_embedding: JSON.stringify(queryEmbedding),
       match_user_id: userId,
       match_limit: limit,
-      match_threshold: 0.3,
+      match_threshold: 0.2,
       filter_category: category || null,
     });
 

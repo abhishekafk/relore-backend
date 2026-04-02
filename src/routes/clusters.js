@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('user_clusters')
-      .select('id, label, reel_ids, generated_at')
+      .select('id, label, reel_ids, summary, generated_at')
       .eq('user_id', userId)
       .order('generated_at', { ascending: false });
 
@@ -22,6 +22,29 @@ router.get('/', async (req, res) => {
   } catch (err) {
     console.error('[CLUSTERS] Error:', err.message);
     res.status(500).json({ error: 'failed to fetch clusters' });
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  const userId = req.user.id;
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await supabase
+      .from('user_clusters')
+      .select('id, label, reel_ids, summary, generated_at')
+      .eq('user_id', userId)
+      .eq('id', id)
+      .single();
+
+    if (error || !data) {
+      return res.status(404).json({ error: 'cluster not found' });
+    }
+
+    res.json({ cluster: data });
+  } catch (err) {
+    console.error('[CLUSTERS] Error:', err.message);
+    res.status(500).json({ error: 'failed to fetch cluster' });
   }
 });
 

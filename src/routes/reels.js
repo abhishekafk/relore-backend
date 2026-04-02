@@ -181,4 +181,24 @@ router.delete('/:id', async (req, res) => {
   res.json({ id: data.id, deleted: true });
 });
 
+router.delete('/all', async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const { error } = await supabase
+      .from('reels')
+      .delete()
+      .eq('user_id', userId);
+
+    if (error) {
+      return res.status(500).json({ error: 'failed to delete all reels' });
+    }
+
+    res.json({ deleted: true, message: 'all reels deleted' });
+  } catch (err) {
+    console.error('[DELETE ALL] Failed:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = router;
